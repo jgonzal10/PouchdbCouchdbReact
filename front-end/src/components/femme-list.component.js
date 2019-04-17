@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import DB from '../db';
 const Femme = props => (
     <>
-    {console.log('pprops ',props.femme.doc)}
+
     <tr>
         <td>{props.femme.doc.name}</td>
         <td>{props.femme.doc.job}</td>
@@ -25,17 +25,17 @@ export default class FemmeList extends Component {
 
 
     FemmeList() {
-        console.log('ttttt ', this.state.femmes)
+       
         return (this.state.femmes.map(function (currentFemme, i) {
-            console.log('current ', currentFemme)
+          
              return <Femme femme={currentFemme} key={i} />;
         }))
     }
     async componentWillMount() {
-        console.log('willl')
+       
         const femmes = await this.state.db.getAllFemmes();
         await this.setState({ femmes })
-        console.log(this.state.femmes)
+      //  console.log(this.state.femmes)
 
     }
     async componentDidMount() {

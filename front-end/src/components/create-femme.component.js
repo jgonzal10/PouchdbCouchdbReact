@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import axios from 'axios';
+import {Redirect} from 'react-router-dom'
 import DB from '../db';
 
 
@@ -10,7 +10,8 @@ export default class CreateFemme extends Component {
             db: new DB('femmes'),
             femmes: {},
             name:'',
-            job:''
+            job:'',
+            redirect:false
         }
 
         this.onChangeFemmeName = this.onChangeFemmeName.bind(this)
@@ -34,6 +35,12 @@ export default class CreateFemme extends Component {
         this.db.post({ ...femme })
     }
 
+    renderRedirect = () => {
+        if (this.state.redirect) {
+          return <Redirect to='/target' />
+        }
+      }
+
 
     async createFemmePouch(femme) { 
 
@@ -48,11 +55,8 @@ export default class CreateFemme extends Component {
             job: this.state.job
         }
 
-        // axios.post('http://localhost:4000/femmes/add', newFemme)
-        //     .then(res => console.log(res.data));
-
-
         this.createFemmePouch(newFemme)
+        this.setState({redirect:true})
 
     }
     render() {
@@ -81,6 +85,7 @@ export default class CreateFemme extends Component {
                         <input type="submit" value="Create Femme" className="btn btn-primary" />
                     </div>
                 </form>
+                {this.state.redirect && <Redirect to='/' />}
             </div>
         )
     }

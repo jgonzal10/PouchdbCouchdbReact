@@ -3,7 +3,7 @@ import PouchDB from 'pouchdb'
 export default class DB {
 
     constructor(name) {
-        console.log('db name ', name)
+       
         this.db = new PouchDB(name);
         this.remote = new PouchDB('http://localhost:5984/femmes');
     }
@@ -12,12 +12,12 @@ export default class DB {
     async getAllFemmes(){
         //console.log('get all')
         let allFemmes =await this.db.allDocs({include_docs:true});
-        console.log('allfeme ', allFemmes)
+     
 
         await this.db.sync(this.remote).on('complete', function () {
-            console.log('done')
+           
           }).on('error', function (err) {
-            // boo, something went wrong!
+            console.log('something happend while sync ', err)
           });
         return allFemmes.rows;
        // let femmes={};
