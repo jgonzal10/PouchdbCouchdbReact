@@ -31,16 +31,6 @@ export default class CreateFemme extends Component {
         });
     }
 
-    CreateFemme(femme) {
-        this.db.post({ ...femme })
-    }
-
-    renderRedirect = () => {
-        if (this.state.redirect) {
-          return <Redirect to='/target' />
-        }
-      }
-
 
     async createFemmePouch(femme) { 
 
