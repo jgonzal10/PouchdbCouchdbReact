@@ -21,7 +21,9 @@ export default class DB {
       /**BIDERECTIONAL REPLICATION
        * This is the main step to make the synchronization process possible
        */
-      await this.db.sync(this.remote).on('change', function (info) {
+
+      var opts = { live: true, retry: true };
+      await this.db.sync(this.remote, [opts]).on('change', function (info) {
         console.log('something changed ', info)
       }).on('complete', function () {
         console.log('sync completed')
@@ -64,6 +66,24 @@ export default class DB {
     }
 
   }
+
+    //CREATING A NEW WOMAN POST, NO ID NEEDED
+    async CreateFemmePost(femme) {
+      try {
+  
+        /**
+         * db.post  to Create new Documents
+         */
+        femme.createdAt = new Date();
+        femme.updatedAt = new Date();
+        const res = await this.db.put({ ...femme });
+        return res;
+      } catch (err) {
+        console.log(err)
+        return err;
+      }
+  
+    }
 
   //EDIT A WOMAN PASSING NEW VALUES
   async EditFemme(femme) {
